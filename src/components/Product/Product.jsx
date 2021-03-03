@@ -10,7 +10,7 @@ class Product extends Component {
                 <p>id: {this.props.product.id}</p>
                 <p>price: {this.props.product.price}</p>
                 <p>count: {this.props.product.count}</p>
-                <Counter value={this.props.product.count} onIncrement={this.props.onIncrement} />
+                <Counter value={this.props.product.count} onIncrement={this.props.onIncrement} onDecrement={this.props.onDecrement} />
             </div>
         )
     }
