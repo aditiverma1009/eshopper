@@ -1,10 +1,13 @@
 import './App.css';
 import Home from './components/Home/Home';
+import Header from './components/Header/Header';
 
 function App() {
   return (
-    // header
-    <Home />
+    <>
+      <Header cartValue={'1'} />
+      <Home />
+    </>
     // cart
   );
 }
