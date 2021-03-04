@@ -1,14 +1,21 @@
 import './App.css';
 import Home from './components/Home/Home';
 import Header from './components/Header/Header';
+import Cart from './components/Cart/Cart';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 function App() {
+  // lifted ... cartvalue
   return (
     <>
-      <Header cartValue={'1'} />
-      <Home />
+      <BrowserRouter>
+        <Header cartValue={'1'} />
+        <Switch>
+          <Route path="/" exact><Home /></Route>
+          <Route path="/cart"><Cart /></Route>
+        </Switch>
+      </BrowserRouter>
     </>
-    // cart
   );
 }
 
