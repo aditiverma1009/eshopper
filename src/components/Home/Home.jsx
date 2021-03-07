@@ -41,7 +41,11 @@ class Home extends Component {
       ...this.state,
       cartCount: this.state.cartCount + 1,
       products: this.state.products.map((eachProduct) => {
-        if (eachProduct.id === id) {
+        if (
+          eachProduct.id === id &&
+          eachProduct.count > eachProduct.inCartCount &&
+          eachProduct.count !== 0
+        ) {
           return { ...eachProduct, inCartCount: eachProduct.inCartCount + 1 };
         }
         return eachProduct;
@@ -55,7 +59,7 @@ class Home extends Component {
       ...this.state,
       cartCount: this.state.cartCount - 1,
       products: this.state.products.map((eachProduct) => {
-        if (eachProduct.id === id) {
+        if (eachProduct.id === id && eachProduct.inCartCount > 0) {
           return { ...eachProduct, inCartCount: eachProduct.inCartCount - 1 };
         } else {
           return eachProduct;
