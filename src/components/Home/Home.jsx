@@ -1,34 +1,40 @@
 import React, { Component } from "react";
 import Product from "../Product/Product";
+import axios from "axios";
+import BASE_URL from "../../constants/index";
 import "./Home.css";
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: [
-        {
-          id: 1,
-          name: "apple",
-          price: 10,
-          count: 0,
-        },
-        {
-          id: 2,
-          name: "banana",
-          price: 10,
-          count: 0,
-        },
-        {
-          id: 3,
-          name: "grapes",
-          price: 10,
-          count: 0,
-        },
-      ],
+      error: null,
+      isLoaded: false,
+      products: [],
       cartCount: 0,
     };
   }
+
+  componentDidMount = async () => {
+    const { data, error } = await axios.get(`${BASE_URL}/items`);
+    const products = data.data;
+    if (products) {
+      this.setState({
+        isLoaded: true,
+        products: products.map((eachProduct) => {
+          return {
+            ...eachProduct,
+            inCartCount: 0,
+          };
+        }),
+      });
+    } else if (error) {
+      this.setState({
+        isLoaded: true,
+        error: error,
+      });
+    }
+  };
 
   onIncrement(id) {
     const newState = {
@@ -36,12 +42,11 @@ class Home extends Component {
       cartCount: this.state.cartCount + 1,
       products: this.state.products.map((eachProduct) => {
         if (eachProduct.id === id) {
-          return { ...eachProduct, count: eachProduct.count + 1 };
+          return { ...eachProduct, inCartCount: eachProduct.inCartCount + 1 };
         }
         return eachProduct;
       }),
     };
-    console.log("newState%%%%", newState);
     this.setState(newState);
   }
 
@@ -51,7 +56,7 @@ class Home extends Component {
       cartCount: this.state.cartCount - 1,
       products: this.state.products.map((eachProduct) => {
         if (eachProduct.id === id) {
-          return { ...eachProduct, count: eachProduct.count - 1 };
+          return { ...eachProduct, inCartCount: eachProduct.inCartCount - 1 };
         } else {
           return eachProduct;
         }
@@ -61,6 +66,7 @@ class Home extends Component {
   }
 
   render() {
+    console.log(this.state.products);
     const allProducts = this.state.products.map((eachProduct) => {
       return (
         <Product

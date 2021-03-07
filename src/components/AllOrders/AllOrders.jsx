@@ -15,7 +15,6 @@ export default class AllOrders extends Component {
 
   componentDidMount = async () => {
     const { data, error } = await axios.get(`${BASE_URL}/orders`);
-    console.log(data, error);
     const orders = data.data;
     if (orders) {
       this.setState({
