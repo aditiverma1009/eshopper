@@ -1,4 +1,9 @@
 .product-card {
-    border: black solid 1px;
-    margin: 10px;
+  padding: 10px;
+  border: black solid 1px;
+  margin: auto;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

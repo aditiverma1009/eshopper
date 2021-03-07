@@ -1,5 +1,7 @@
 .header {
-    border: red solid  1px;
-    display: flex;
-    justify-content: space-between;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: lightblue;
+  display: flex;
+  justify-content: space-between;
 }
