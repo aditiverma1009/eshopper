@@ -2,6 +2,25 @@ import React, { Component } from "react";
 import "./Cart.css";
 export default class Cart extends Component {
   render() {
-    return <div className="cart-page">Cart</div>;
+    if (this.props.cart.length > 0) {
+      return (
+        <div className="cart-page">
+          <div>Cart</div>
+          <div>
+            {this.props.cart.map((eachCartItem) => {
+              return (
+                <div key={eachCartItem.id}>
+                  <p>{eachCartItem.name}</p>
+                  <p>Rs. {eachCartItem.price}</p>
+                  <p>Quantity: {eachCartItem.inCartCount}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    } else {
+      return <div className="cart-page">No Items in the cart</div>;
+    }
   }
 }

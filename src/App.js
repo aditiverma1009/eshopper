@@ -16,6 +16,7 @@ class App extends Component {
       isLoaded: false,
       products: [],
       cartCount: 0,
+      cart: [],
     };
   }
 
@@ -45,15 +46,21 @@ class App extends Component {
       (eachProduct) => eachProduct.id === id
     );
     if (product && product.count > product.inCartCount && product.count !== 0) {
+      let currentProduct = {};
       const newState = {
         ...this.state,
         cartCount: this.state.cartCount + 1,
         products: this.state.products.map((eachProduct) => {
           if (eachProduct.id === id) {
-            return { ...eachProduct, inCartCount: eachProduct.inCartCount + 1 };
+            currentProduct = {
+              ...eachProduct,
+              inCartCount: eachProduct.inCartCount + 1,
+            };
+            return currentProduct;
           }
           return eachProduct;
         }),
+        cart: [...this.state.cart, currentProduct],
       };
       this.setState(newState);
     }
@@ -96,7 +103,7 @@ class App extends Component {
               <AllOrders />
             </Route>
             <Route path="/cart">
-              <Cart />
+              <Cart cart={this.state.cart} />
             </Route>
           </Switch>
         </BrowserRouter>
