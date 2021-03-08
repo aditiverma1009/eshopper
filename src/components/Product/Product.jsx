@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Counter from "../Counter/Counter";
-import "./Product.css";
+import "./Product.scss";
 
 class Product extends Component {
   render() {

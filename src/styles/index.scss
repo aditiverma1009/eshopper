@@ -1,0 +1,20 @@
+// colors
+$primary-text-color: white;
+$primary-background-color: pink;
+$primary-link-color: black;
+$hover-link-color: purple;
+
+// breakpoints
+$largeMobile-breakpoint: 700px;
+$tablet-breakpoint: 1000px;
+$laptop-breakpoint: 1500px;
+
+@mixin custom-mixin {
+  background-color: yellow;
+}
+
+@mixin media-mixin($width) {
+  @media only screen and (max-width: $width) {
+    @content;
+  }
+}

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./App.css";
+import "./App.scss";
 import Home from "./components/Home/Home";
 import Header from "./components/Header/Header";
 import Cart from "./components/Cart/Cart";

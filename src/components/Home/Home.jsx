@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Product from "../Product/Product";
 
-import "./Home.css";
+import "./Home.scss";
 
 class Home extends Component {
   constructor(props) {

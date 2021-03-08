@@ -1,7 +1,15 @@
+@import "../../styles/index.scss";
+
 .header {
   padding: 10px;
   margin-bottom: 20px;
   background-color: lightblue;
   display: flex;
   justify-content: space-between;
+}
+
+@include media-mixin($tablet-breakpoint) {
+  .header {
+    background-color: orange;
+  }
 }
