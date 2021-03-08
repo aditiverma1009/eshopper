@@ -6,9 +6,15 @@ class Header extends Component {
   render() {
     return (
       <div className="header">
-        <Link to="/">logo</Link>
-        <Link to="/all-orders">All orders</Link>
-        <Link to="/cart">cart total : {this.props.cartValue}</Link>
+        <Link to="/" className="link">
+          Home
+        </Link>
+        <Link to="/all-orders" className="link">
+          All orders
+        </Link>
+        <Link to="/cart" className="link">
+          Cart total: {this.props.cartValue}
+        </Link>
       </div>
     );
   }

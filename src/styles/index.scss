@@ -1,6 +1,6 @@
 // colors
 $primary-text-color: white;
-$primary-background-color: pink;
+$primary-background-color: lightgrey;
 $primary-link-color: black;
 $hover-link-color: purple;
 
@@ -10,7 +10,7 @@ $tablet-breakpoint: 1000px;
 $laptop-breakpoint: 1500px;
 
 @mixin custom-mixin {
-  background-color: yellow;
+  background-color: white;
 }
 
 @mixin media-mixin($width) {

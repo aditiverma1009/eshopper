@@ -6,10 +6,16 @@
   background-color: lightblue;
   display: flex;
   justify-content: space-between;
+  .link {
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+  }
 }
 
 @include media-mixin($tablet-breakpoint) {
   .header {
-    background-color: orange;
+    background-color: skyblue;
+    color: white;
   }
 }
