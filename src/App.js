@@ -27,7 +27,6 @@ const App = () => {
           };
         })
       );
-      console.log(products);
     } else if (error) {
       setIsLoaded(true);
       setError(error);
@@ -54,7 +53,6 @@ const App = () => {
   };
 
   const onIncrement = (id) => {
-    console.log(id, products);
     const product = products.find((eachProduct) => eachProduct.id === id);
     if (product && product.count > product.inCartCount && product.count !== 0) {
       let currentProduct = {};
@@ -70,7 +68,6 @@ const App = () => {
           return eachProduct;
         }
       });
-      console.log(updatedProduct);
       setProducts(updatedProduct);
       setCart(updateCart(currentProduct));
     }

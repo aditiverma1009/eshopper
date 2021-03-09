@@ -4,9 +4,7 @@ import Product from "../Product/Product";
 import "./Home.scss";
 
 const Home = (props) => {
-  console.log(props);
   const allProducts = props.products.map((eachProduct) => {
-    console.log(eachProduct);
     return (
       <Product
         key={eachProduct.id}
