@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.scss";
 import Home from "./components/Home/Home";
 import Header from "./components/Header/Header";
@@ -7,42 +7,36 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import AllOrders from "./components/AllOrders/AllOrders";
 import axios from "axios";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      products: [],
-      cartCount: 0,
-      cart: [],
-    };
-  }
+const App = () => {
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [cartCount, setCartCount] = useState(0);
+  const [cart, setCart] = useState([]);
 
-  componentDidMount = async () => {
+  useEffect(async () => {
     const { data, error } = await axios.get(`/items`);
     const products = data.data;
     if (products) {
-      this.setState({
-        isLoaded: true,
-        products: products.map((eachProduct) => {
+      setIsLoaded(true);
+      setProducts(
+        products.map((eachProduct) => {
           return {
             ...eachProduct,
             inCartCount: 0,
           };
-        }),
-      });
+        })
+      );
+      console.log(products);
     } else if (error) {
-      this.setState({
-        isLoaded: true,
-        error: error,
-      });
+      setIsLoaded(true);
+      setError(error);
     }
-  };
+  }, []);
 
-  setCart = (currentProduct) => {
+  const updateCart = (currentProduct) => {
     let flag = 0;
-    const updatedCart = this.state.cart.map((eachProduct) => {
+    const updatedCart = cart.map((eachProduct) => {
       if (eachProduct.id === currentProduct.id) {
         flag = 1;
         return {
@@ -59,81 +53,72 @@ class App extends Component {
     return updatedCart;
   };
 
-  onIncrement(id) {
-    const product = this.state.products.find(
-      (eachProduct) => eachProduct.id === id
-    );
+  const onIncrement = (id) => {
+    console.log(id, products);
+    const product = products.find((eachProduct) => eachProduct.id === id);
     if (product && product.count > product.inCartCount && product.count !== 0) {
       let currentProduct = {};
-      const newState = {
-        ...this.state,
-        cartCount: this.state.cartCount + 1,
-        products: this.state.products.map((eachProduct) => {
-          if (eachProduct.id === id) {
-            currentProduct = {
-              ...eachProduct,
-              inCartCount: eachProduct.inCartCount + 1,
-            };
-            return currentProduct;
-          }
+      setCartCount(cartCount + 1);
+      const updatedProduct = products.map((eachProduct) => {
+        if (eachProduct.id === id) {
+          currentProduct = {
+            ...eachProduct,
+            inCartCount: eachProduct.inCartCount + 1,
+          };
+          return currentProduct;
+        } else {
           return eachProduct;
-        }),
-        cart: this.setCart(currentProduct),
-      };
-      this.setState(newState);
+        }
+      });
+      console.log(updatedProduct);
+      setProducts(updatedProduct);
+      setCart(updateCart(currentProduct));
     }
-  }
+  };
 
-  onDecrement(id) {
-    const product = this.state.products.find(
-      (eachProduct) => eachProduct.id === id
-    );
+  const onDecrement = (id) => {
+    const product = products.find((eachProduct) => eachProduct.id === id);
     if (product && product.inCartCount > 0) {
-      const newState = {
-        ...this.state,
-        cartCount: this.state.cartCount - 1,
-        products: this.state.products.map((eachProduct) => {
+      setCartCount(cartCount - 1);
+      setProducts(
+        products.map((eachProduct) => {
           if (eachProduct.id === id) {
             return { ...eachProduct, inCartCount: eachProduct.inCartCount - 1 };
           } else {
             return eachProduct;
           }
-        }),
-      };
-      this.setState(newState);
+        })
+      );
     }
-  }
+  };
 
-  render() {
-    const { error, isLoaded } = this.state;
-    if (error) {
-      return <div>Error: {error.message}</div>;
-    } else if (!isLoaded) {
-      return <div>Loading...</div>;
-    }
-    return (
-      <>
-        <BrowserRouter>
-          <Header cartValue={this.state.cartCount} />
-          <Switch>
-            <Route path="/" exact>
-              <Home
-                products={this.state.products}
-                onIncrement={(id) => this.onIncrement(id)}
-                onDecrement={(id) => this.onDecrement(id)}
-              />
-            </Route>
-            <Route path="/all-orders">
-              <AllOrders />
-            </Route>
-            <Route path="/cart">
-              <Cart cart={this.state.cart} />
-            </Route>
-          </Switch>
-        </BrowserRouter>
-      </>
-    );
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  } else if (!isLoaded) {
+    return <div>Loading...</div>;
   }
-}
+  return (
+    <>
+      <BrowserRouter>
+        <Header cartValue={cartCount} />
+        <Switch>
+          <Route path="/" exact>
+            <Home
+              products={products}
+              onIncrement={(id) => onIncrement(id)}
+              onDecrement={(id) => onDecrement(id)}
+            />
+          </Route>
+          <Route path="/all-orders">
+            <AllOrders />
+          </Route>
+          <Route path="/cart">
+            <Cart cart={cart} />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    </>
+  );
+};
 
 export default App;
