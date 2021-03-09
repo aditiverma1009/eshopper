@@ -44,12 +44,10 @@ const mockResponse = {
 
 describe("Cart", () => {
   test("should render", async () => {
-    axiosMock.post.mockResolvedValueOnce(mockResponse);
+    axiosMock.post = jest.fn().mockResolvedValueOnce(mockResponse);
     const { getByText, container } = render(<Cart cart={mockCart} />);
     const result = await waitFor(() => getByText("Item"));
     expect(result).toBeInTheDocument();
-    // expect(axiosMock.post).toHaveBeenCalledTimes(1);
-    // expect(axiosMock.post).toHaveBeenCalledWith("/orders");
     expect(container).toMatchSnapshot();
   });
 

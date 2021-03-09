@@ -1,7 +1,7 @@
 import { render, waitFor } from "@testing-library/react";
 import AllOrders from "./AllOrders.jsx";
 import React from "react";
-import axiosMock from "axios";
+import axios from "axios";
 
 const mockOrders = {
   data: {
@@ -25,12 +25,13 @@ const mockOrders = {
 
 describe("All Orders", () => {
   test("should get orders", async () => {
-    axiosMock.get.mockResolvedValueOnce(mockOrders);
+    axios.get = jest.fn();
+    axios.get.mockResolvedValueOnce(mockOrders);
     const { getByText, container } = render(<AllOrders />);
     const result = await waitFor(() => getByText("Order ID"));
     expect(result).toBeInTheDocument();
-    expect(axiosMock.get).toHaveBeenCalledTimes(1);
-    expect(axiosMock.get).toHaveBeenCalledWith("/orders");
+    expect(axios.get).toHaveBeenCalledTimes(1);
+    expect(axios.get).toHaveBeenCalledWith("/orders");
     expect(container).toMatchSnapshot();
   });
 
