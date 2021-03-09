@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import "./AllOrders.css";
+import "./AllOrders.scss";
 
 export default class AllOrders extends Component {
   constructor(props) {
@@ -37,13 +37,34 @@ export default class AllOrders extends Component {
     }
     return (
       <div className="all-products">
-        {orders.map((eachOrder) => {
-          return (
-            <div key={eachOrder.id}>
-              {eachOrder.id}---{new Date(eachOrder.date).toString()}
-            </div>
-          );
-        })}
+        <table className="all-products-table">
+          <tr className="order-rows">
+            <td>Order ID</td>
+            <td>Date</td>
+            <td>Items</td>
+          </tr>
+          {orders.map((eachOrder) => {
+            return (
+              <tr className="order-rows" key={eachOrder.id}>
+                <td>{eachOrder.id}</td>
+                <td>{new Date(eachOrder.date).toString()}</td>
+                <td>
+                  {eachOrder.items.map((eachItem) => {
+                    return (
+                      <table className="item-table" key={eachOrder + eachItem}>
+                        <tr>
+                          <td>{eachItem.id}</td>
+                          <td>{eachItem.name}</td>
+                          <td>{eachItem.count}</td>
+                        </tr>
+                      </table>
+                    );
+                  })}
+                </td>
+              </tr>
+            );
+          })}
+        </table>
       </div>
     );
   }

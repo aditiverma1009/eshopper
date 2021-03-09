@@ -1,22 +1,28 @@
 import React, { Component } from "react";
-import "./Cart.css";
+import "./Cart.scss";
 export default class Cart extends Component {
   render() {
     if (this.props.cart.length > 0) {
       return (
         <div className="cart-page">
-          <div>Cart</div>
-          <div>
+          <table className="cart-table">
+            <tr>
+              <td>Item</td>
+              <td>Unit Price</td>
+              <td>Quatity</td>
+              <td>Sub Total</td>
+            </tr>
             {this.props.cart.map((eachCartItem) => {
               return (
-                <div key={eachCartItem.id}>
-                  <p>{eachCartItem.name}</p>
-                  <p>Rs. {eachCartItem.price}</p>
-                  <p>Quantity: {eachCartItem.cart}</p>
-                </div>
+                <tr key={eachCartItem.id}>
+                  <td>{eachCartItem.name}</td>
+                  <td>Rs. {eachCartItem.price}</td>
+                  <td>{eachCartItem.inCartCount}</td>
+                  <td>{eachCartItem.inCartCount * eachCartItem.price}</td>
+                </tr>
               );
             })}
-          </div>
+          </table>
         </div>
       );
     } else {

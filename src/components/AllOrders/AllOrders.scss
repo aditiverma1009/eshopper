@@ -1,0 +1,30 @@
+.all-products {
+  padding: 10px;
+  .all-products-table {
+    border-collapse: collapse;
+    margin: auto;
+
+    .order-rows > td {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+  }
+  .item-table {
+    border: 0;
+    width: 100%;
+    border-collapse: collapse;
+    td {
+      width: 100px;
+      border-right: 1px solid #dddddd;
+      padding: 0 10px;
+    }
+    td:first-child {
+      width: 20px;
+    }
+    td:last-child {
+      width: 20px;
+      border: 0;
+    }
+  }
+}

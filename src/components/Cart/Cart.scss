@@ -1,0 +1,15 @@
+.cart-page {
+  padding: 10px;
+  .cart-table {
+    border-collapse: collapse;
+    margin: auto;
+
+    td,
+    th,
+    tr {
+      border: 1px solid grey;
+      text-align: left;
+      padding: 8px;
+    }
+  }
+}
