@@ -12,7 +12,7 @@ export default class Cart extends Component {
                 <div key={eachCartItem.id}>
                   <p>{eachCartItem.name}</p>
                   <p>Rs. {eachCartItem.price}</p>
-                  <p>Quantity: {eachCartItem.inCartCount}</p>
+                  <p>Quantity: {eachCartItem.cart}</p>
                 </div>
               );
             })}

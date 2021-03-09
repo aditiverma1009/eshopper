@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import BASE_URL from "../../constants/index";
 import "./AllOrders.css";
 
 export default class AllOrders extends Component {
@@ -14,7 +13,7 @@ export default class AllOrders extends Component {
   }
 
   componentDidMount = async () => {
-    const { data, error } = await axios.get(`${BASE_URL}/orders`);
+    const { data, error } = await axios.get(`/orders`);
     const orders = data.data;
     if (orders) {
       this.setState({
@@ -41,7 +40,7 @@ export default class AllOrders extends Component {
         {orders.map((eachOrder) => {
           return (
             <div key={eachOrder.id}>
-              {eachOrder.id}--- {Date(eachOrder.date)}
+              {eachOrder.id}---{new Date(eachOrder.date).toString()}
             </div>
           );
         })}

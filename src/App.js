@@ -6,7 +6,6 @@ import Cart from "./components/Cart/Cart";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import AllOrders from "./components/AllOrders/AllOrders";
 import axios from "axios";
-import BASE_URL from "./constants/index.js";
 
 class App extends Component {
   constructor(props) {
@@ -21,7 +20,7 @@ class App extends Component {
   }
 
   componentDidMount = async () => {
-    const { data, error } = await axios.get(`${BASE_URL}/items`);
+    const { data, error } = await axios.get(`/items`);
     const products = data.data;
     if (products) {
       this.setState({
@@ -39,6 +38,25 @@ class App extends Component {
         error: error,
       });
     }
+  };
+
+  setCart = (currentProduct) => {
+    let flag = 0;
+    const updatedCart = this.state.cart.map((eachProduct) => {
+      if (eachProduct.id === currentProduct.id) {
+        flag = 1;
+        return {
+          ...eachProduct,
+          inCartCount: eachProduct.inCartCount + 1,
+        };
+      } else {
+        return eachProduct;
+      }
+    });
+    if (!flag) {
+      updatedCart.push(currentProduct);
+    }
+    return updatedCart;
   };
 
   onIncrement(id) {
@@ -60,7 +78,7 @@ class App extends Component {
           }
           return eachProduct;
         }),
-        cart: [...this.state.cart, currentProduct],
+        cart: this.setCart(currentProduct),
       };
       this.setState(newState);
     }
@@ -87,6 +105,12 @@ class App extends Component {
   }
 
   render() {
+    const { error, isLoaded } = this.state;
+    if (error) {
+      return <div>Error: {error.message}</div>;
+    } else if (!isLoaded) {
+      return <div>Loading...</div>;
+    }
     return (
       <>
         <BrowserRouter>

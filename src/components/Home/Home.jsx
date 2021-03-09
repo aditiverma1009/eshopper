@@ -9,7 +9,6 @@ class Home extends Component {
   }
 
   render() {
-    console.log(this.props.products);
     const allProducts = this.props.products.map((eachProduct) => {
       return (
         <Product
