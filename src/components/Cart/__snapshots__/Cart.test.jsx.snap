@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cart should post cart on checkout 1`] = `
+<div>
+  <div
+    class="cart-page"
+  >
+    <table
+      class="cart-table"
+    >
+      <tr>
+        <td>
+          Item
+        </td>
+        <td>
+          Unit Price
+        </td>
+        <td>
+          Quatity
+        </td>
+        <td>
+          Sub Total
+        </td>
+      </tr>
+      <tr>
+        <td>
+          apple
+        </td>
+        <td>
+          Rs. 
+          120
+        </td>
+        <td>
+          1
+        </td>
+        <td>
+          120
+        </td>
+      </tr>
+    </table>
+    <div
+      class="total-value"
+    >
+      <div>
+        total: 
+        120
+      </div>
+      <button>
+        Checkout
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Cart should render 1`] = `
+<div>
+  <div
+    class="cart-page"
+  >
+    <table
+      class="cart-table"
+    >
+      <tr>
+        <td>
+          Item
+        </td>
+        <td>
+          Unit Price
+        </td>
+        <td>
+          Quatity
+        </td>
+        <td>
+          Sub Total
+        </td>
+      </tr>
+      <tr>
+        <td>
+          apple
+        </td>
+        <td>
+          Rs. 
+          120
+        </td>
+        <td>
+          1
+        </td>
+        <td>
+          120
+        </td>
+      </tr>
+    </table>
+    <div
+      class="total-value"
+    >
+      <div>
+        total: 
+        120
+      </div>
+      <button>
+        Checkout
+      </button>
+    </div>
+  </div>
+</div>
+`;

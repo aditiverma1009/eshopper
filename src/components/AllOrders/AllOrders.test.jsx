@@ -26,10 +26,16 @@ const mockOrders = {
 describe("All Orders", () => {
   test("should get orders", async () => {
     axiosMock.get.mockResolvedValueOnce(mockOrders);
-    const { getByText } = render(<AllOrders />);
+    const { getByText, container } = render(<AllOrders />);
     const result = await waitFor(() => getByText("Order ID"));
     expect(result).toBeInTheDocument();
     expect(axiosMock.get).toHaveBeenCalledTimes(1);
     expect(axiosMock.get).toHaveBeenCalledWith("/orders");
+    expect(container).toMatchSnapshot();
+  });
+
+  test("should match snapshot for loading", () => {
+    const { container } = render(<AllOrders />);
+    expect(container).toMatchSnapshot();
   });
 });
